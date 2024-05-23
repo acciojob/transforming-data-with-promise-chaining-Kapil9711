@@ -2,22 +2,65 @@
 const btn = document.querySelector('#btn');
 const input = document.querySelector('#ip');
 const output = document.querySelector('#output');
+let message = `Result: `
 
 
 function handleClick(){
 	return new Promise((resolve,reject)=>{
 		setTimeout(()=>{
-			output.textContent = input.value;
-			resolve(input.value);
+			resolve(Number(input.value));
 		},2000);
 })
 }
 
 
 btn.addEventListener('click', ()=>{
-  hanldeClick().then(num => output.textContent = num);
+  handleClick().then(num => {
+	       output.textContent = message + num
+	  return new Promise((resolve,reject)=>{
+		  setTimeout(()=>{
+			  resolve(num);
+		  },2000);
+	  }) 
+  }).then(num =>{
+	  num *= 2;
+	  output.textContent = message + num;
+	  return new Promise ((resolve,reject)=>{
+		  setTimeout(()=>{
+			  resolve(num);
+		  },1000)
+	  })
+	  
+  }).then(num =>{
+	  num -= 3;
+	  output.textContent = message + num;
+	  return new Promise ((resolve,reject)=>{
+		  setTimeout(()=>{
+			  resolve(num);
+		  },1000)
+	  })
+	  
+  }).then(num =>{
+	  num /= 2;
+	  output.textContent = message + num;
+	  return new Promise ((resolve,reject)=>{
+		  setTimeout(()=>{
+			  resolve(num);
+		  },1000)
+	  })
+	  
+  }).then(num =>{
+	  num += 10;
+	  output.textContent = message + num;
+	  return new Promise ((resolve,reject)=>{
+		  setTimeout(()=>{
+			  resolve(num);
+		  },1000)
+	  })
+	  
+  }).then(num => output.textContent = `Final Result: ${num}`);
+	
 
-}
-					);
+});
 
 
